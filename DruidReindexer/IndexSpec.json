@@ -1,0 +1,53 @@
+{
+  "type": "index",
+  "spec" : {
+  "dataSchema": {
+    "dataSource": "ltest2",
+    "parser": {
+      "type": "string",
+      "parseSpec": {
+        "format": "json",
+        "timestampSpec": {
+          "column": "Eventdate",
+          "format": "auto"
+        },
+        "dimensionsSpec": {
+          "dimensions": [],
+          "dimensionExclusions": [
+            "Eventdate"
+          ]
+        }
+      }
+    },
+    "metricsSpec": [
+      {
+        "name": "LoanAmount",
+        "type": "doubleSum",
+        "fieldName": "Line"
+      }
+
+    ],
+    "granularitySpec": {
+      "type": "uniform",
+      "segmentGranularity": "DAY",
+      "queryGranularity": "NONE",
+      "intervals" : ["2016-01-01/2016-05-06"]
+    }
+  },
+  "ioConfig": {
+      "type" : "index",
+      "firehose" : {
+        "type" : "local",
+        "baseDir" : "Directory where the file DIMTEST_5ade0a90-eec3-44c6-b7e9-cf15362323cb.json exists ",
+        "filter" : "DIMTEST_5ade0a90-eec3-44c6-b7e9-cf15362323cb.json"
+       }
+},
+
+  "tuningConfig": {
+    "type": "index",
+    "targetPartitionSize" :-1,
+    "rowFlushBoundary" : 0,
+    "numShards": 1
+  }
+  }
+}
